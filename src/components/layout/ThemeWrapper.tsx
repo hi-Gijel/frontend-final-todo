@@ -1,10 +1,14 @@
-'use client';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { useEffect, useState } from 'react';
-import Navbar from './Navbar';
+"use client";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { useEffect, useState } from "react";
+import Navbar from "./Navbar";
 
-export default function ThemeWrapper({ children }: { children: React.ReactNode }) {
+export default function ThemeWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { theme } = useSelector((state: RootState) => state.ui);
   const [mounted, setMounted] = useState(false);
 
@@ -14,21 +18,20 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div style={{ minHeight: '100vh' }}>{children}</div>;
+  if (!mounted) return <div style={{ minHeight: "100vh" }}>{children}</div>;
 
   return (
     <div
       style={{
-        // 💡 [추가 과제] theme 값에 따라 배경색과 글자색을 삼항 연산자로 설정하세요.
-        //    예: theme === 'dark' ? '#1a1a1a' : '#f5f5f5'
-        backgroundColor: undefined /* TODO */,
-        color: undefined /* TODO */,
-        minHeight: '100vh',
-        transition: 'all 0.3s',
+        // theme 값에 따라 배경색과 글자색을 바꿉니다.
+        backgroundColor: theme === "dark" ? "#1a1a1a" : "#f5f5f5",
+        color: theme === "dark" ? "#f5f5f5" : "#1a1a1a",
+        minHeight: "100vh",
+        transition: "all 0.3s",
       }}
     >
       <Navbar />
-      <main style={{ padding: '2rem', maxWidth: '640px', margin: '0 auto' }}>
+      <main style={{ padding: "2rem", maxWidth: "640px", margin: "0 auto" }}>
         {children}
       </main>
     </div>
